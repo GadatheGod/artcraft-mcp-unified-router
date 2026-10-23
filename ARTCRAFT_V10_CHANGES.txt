@@ -1,0 +1,13 @@
+ArtCraft V10 — unified dynamic MCP dispatch
+
+The launcher and app configuration are retained from V9.
+New stable tools: artcraft_apps, artcraft_tools, artcraft_execute.
+These allow discovery and execution of tools in GridCraft, DeckCraft, and any other configured app without relying on changing per-app tool lists.
+
+INSTALL: Extract all files into one folder, replacing V9. Open artcraft_unified_launcher_v9.py. Select the desired applications. Check CLI paths in artcraft_router.json and launcher installations. Stop the previous tunnel, start the new one, and reconnect/refresh the ChatGPT App.
+
+The selected apps must have working CLI MCP servers and, where required, running GUI control ports.
+Existing ChatGPT App registration may require its MCP tool discovery to be refreshed; changing the local router alone cannot force cached remote tool schemas to update.
+
+Test: python test_router_v10.py
+No live Windows app/tunnel validation was possible in this environment.

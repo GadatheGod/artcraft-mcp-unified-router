@@ -1,5 +1,8 @@
 # ArtCraft MCP Unified Router
 
+> **Restored V11 release:** The full Windows launcher and unified router from the original V11 archive have been restored. The launcher includes GUI launching in control mode, app selection, port checks, tunnel configuration and management, dashboard, and logging. Windows integration still requires testing on your PC. See [RESTORATION_NOTES.md](RESTORATION_NOTES.md).
+
+
 A community project for running multiple **ArtCraft** desktop applications behind a single **Model Context Protocol (MCP)** gateway, with a Windows launcher and dynamic tool discovery.
 
 > This is a community integration, not an official ArtCraft or OpenAI release. You must install the applications and configure your own credentials and paths.

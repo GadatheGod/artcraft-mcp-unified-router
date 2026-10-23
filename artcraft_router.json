@@ -1,19 +1,19 @@
 {
   "apps": {
     "SolidCraft": {
-      "enabled": false,
+      "enabled": true,
       "command": [
-        "C:/PATH/TO/SolidCraft/solidcraft-cli.exe",
+        "${HOME}/Downloads/solidcraft-0.18.2-windows-x64-portable/solidcraft-cli.exe",
         "mcp",
         "--connect",
-        "7878"
+        "127.0.0.1:7878"
       ],
       "timeout": 120
     },
     "GridCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/GridCraft/gridcraft-cli.exe",
+        "C:/Program Files/GridCraft/gridcraft-cli.exe",
         "mcp",
         "--connect",
         "7979"
@@ -23,7 +23,7 @@
     "DeckCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/DeckCraft/deckcraft-cli.exe",
+        "C:/Program Files/DeckCraft/deckcraft-cli.exe",
         "mcp",
         "--connect",
         "7990"
@@ -33,17 +33,17 @@
     "CADCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/CADCraft/cadcraft-cli.exe",
+        "C:/Program Files/CADCraft/cadcraft-cli.exe",
         "mcp",
         "--connect",
-        "7980"
+        "127.0.0.1:7980"
       ],
       "timeout": 120
     },
     "DesignCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/DesignCraft/designcraft-cli.exe",
+        "C:/Program Files/DesignCraft/designcraft-cli.exe",
         "mcp",
         "--connect",
         "7991"
@@ -53,17 +53,17 @@
     "LightCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/LightCraft/lightcraft-cli.exe",
+        "C:/Program Files/LightCraft/lightcraft-cli.exe",
         "mcp",
         "--connect",
-        "7992"
+        "127.0.0.1:7992"
       ],
       "timeout": 120
     },
     "PdfCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/PdfCraft/pdfcraft-cli.exe",
+        "C:/Program Files/PdfCraft/pdfcraft-cli.exe",
         "mcp"
       ],
       "timeout": 120
@@ -71,27 +71,27 @@
     "PhotoCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/PhotoCraft/photocraft-cli.exe",
+        "C:/Program Files/PhotoCraft/photocraft-cli.exe",
         "mcp",
-        "--connect",
-        "7994"
+        "--bridge",
+        "127.0.0.1:7994"
       ],
       "timeout": 120
     },
     "WordCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/WordCraft/wordcraft-cli.exe",
+        "C:/Program Files/WordCraft/wordcraft-cli.exe",
         "mcp",
         "--connect",
-        "7981"
+        "127.0.0.1:7981"
       ],
       "timeout": 120
     },
     "VectorCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/VectorCraft/vectorcraft-cli.exe",
+        "C:/Program Files/VectorCraft/vectorcraft-cli.exe",
         "mcp"
       ],
       "timeout": 120
@@ -99,7 +99,7 @@
     "FilmCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/FilmCraft/filmcraft-cli.exe",
+        "C:/Program Files/FilmCraft/filmcraft-cli.exe",
         "mcp"
       ],
       "timeout": 120
@@ -107,7 +107,7 @@
     "EffectCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/EffectCraft/effectcraft-cli.exe",
+        "C:/Program Files/EffectCraft/effectcraft-cli.exe",
         "mcp"
       ],
       "timeout": 120
@@ -115,7 +115,7 @@
     "FigCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/FigCraft/figcraft-cli.exe",
+        "C:/Program Files/FigCraft/figcraft-cli.exe",
         "mcp"
       ],
       "timeout": 120
@@ -123,10 +123,11 @@
     "SoundCraft": {
       "enabled": false,
       "command": [
-        "C:/PATH/TO/SoundCraft/soundcraft-cli.exe",
+        "C:/Program Files/SoundCraft/soundcraft-cli.exe",
         "mcp"
       ],
       "timeout": 120
     }
-  }
+  },
+  "primary_app": "SolidCraft"
 }

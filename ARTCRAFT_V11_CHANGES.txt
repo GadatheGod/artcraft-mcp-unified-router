@@ -1,0 +1,13 @@
+ArtCraft unified router v11 (router version 1.2.0)
+- Dynamically exposes every discovered MCP tool from each enabled app.
+- Adds unprefixed aliases for the designated primary_app (default SolidCraft),
+  fixing compatibility with ChatGPT plugins expecting list_commands, execute, etc.
+- Preserves namespaced tools for all applications, e.g. solidcraft__execute.
+- Adds artcraft_catalog to retrieve the full live tool schemas from all apps.
+- Keeps artcraft_tools, artcraft_execute, artcraft_refresh, and status helpers.
+- No API key changes, no hard-coded fictitious CAD commands.
+
+IMPORTANT: Update the router files on the Windows machine and restart the tunnel.
+Reconnect/recreate the ChatGPT MCP connection to refresh the advertised tool list.
+A plugin manifest update alone cannot repair a stale or mismatched MCP server.
+This package cannot verify live Windows CLI connections from this environment.
