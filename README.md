@@ -254,6 +254,19 @@ python -m unittest discover -p "test_router_v*.py"
 
 Passing unit tests does not verify that an actual GUI, tunnel, or ChatGPT integration is functioning.
 
+## Disclaimer and responsibility
+
+**Use at your own risk.** This is an independent, community-maintained project provided **"AS IS"**, without warranties of any kind, to the extent permitted by applicable law. The project owner and contributors are not responsible or liable for losses, damages, data loss, corrupted files, business interruption, security incidents, or other consequences arising from installing, configuring, or using this software, **to the extent permitted by applicable law**. Review and back up important work before allowing AI-driven tools to modify files or applications. This notice supplements, and does not replace, the terms in the [MIT License](LICENSE).
+
+### Keep credentials private
+
+**NEVER share or publish your API keys, tunnel credentials, access tokens, passwords, or other secrets.** In particular:
+
+- Do **not** commit secrets to GitHub, paste them into public issues, screenshots, logs, or shared configuration files.
+- Use environment variables or a secure secrets manager; keep local credential files out of version control.
+- Treat tunnel IDs and endpoint details as sensitive configuration where appropriate; restrict access to your MCP endpoints and GUI control ports.
+- If a secret is exposed, **revoke or rotate it immediately** and review access logs.
+
 ## Security
 
 - Replace example paths, ports, and tunnel identifiers with your own.
