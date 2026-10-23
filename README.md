@@ -188,6 +188,52 @@ ArtCraft Router ←─┼─ OpenCode / Claude Desktop ─ local stdio ┤
 
 The diagram shows **alternative frontends into one router**, not a requirement to run all connections at once. Keep Craft-specific commands and discovery in the shared router; add transport adapters separately. After application updates, refresh tool discovery and reconnect a client if its tool catalog remains cached.
 
+## What the Python files actually do
+
+The repository has **two different Python programs**. They are not interchangeable.
+
+### `artcraft_unified_router.py` — the MCP engine (required)
+
+This is the **stdio MCP server** used by compatible MCP clients or launched by a correctly configured tunnel backend. It:
+
+1. Reads `artcraft_router.json` and selects only apps with `enabled: true`.
+2. Starts each selected application's configured **MCP child process** (not necessarily its GUI).
+3. Sends MCP `initialize` and `tools/list` requests to discover available commands.
+4. Publishes one combined tool catalog, with namespaced tools such as `gridcraft__<tool_name>`, plus helper tools: `artcraft_status`, `artcraft_apps`, `artcraft_tools`, `artcraft_catalog`, `artcraft_refresh`, and `artcraft_execute`.
+5. Forwards `tools/call` requests to the correct child MCP server and returns its response to the calling AI client.
+6. Can explicitly refresh/reconnect tools; **automatic notification-based discovery is not implemented**.
+
+```text
+AI MCP client (or tunnel MCP backend)
+  → artcraft_unified_router.py
+  → GridCraft / SolidCraft / DeckCraft child MCP server
+  → application's local control interface / GUI
+```
+
+**Important:** The router does **not** itself launch Craft GUIs in control mode, implement CAD/spreadsheet operations, or expose an HTTP endpoint. Those capabilities depend on the installed application MCP server and its configuration. Its configured child command must correctly connect to the corresponding running app.
+
+### `artcraft_unified_launcher_v9.py` — Windows configuration GUI (optional)
+
+This is a lightweight Tkinter interface for managing the setup. It currently provides application enable/disable checkboxes, saves selections to `artcraft_router.json`, lets you choose a tunnel executable and profile, and offers basic tunnel start/stop controls and log messages.
+
+**Current limitations of the published launcher:**
+
+- **Start local router** prints the command for an MCP client to launch; it does **not** start a standalone router process. This is intentional for stdio MCP, where the client/tunnel should own the process.
+- It does **not** currently start the Craft application GUIs in `--control` mode.
+- Its tunnel launch argument (`--profile-file`) has **not been validated** against the official tunnel-client CLI; check your installed version's `help` output.
+- This is a **simplified launcher**, **not** the original full-featured V11 launcher used in the project owner's working setup.
+
+### Which files are required?
+
+| File | Purpose | Needed? |
+| --- | --- | --- |
+| `artcraft_unified_router.py` | MCP tool discovery and command routing | **Yes**, for this repository's unified routing |
+| `artcraft_router.json` | Application registry, enabled apps, child commands and paths | **Yes** |
+| `artcraft_unified_launcher_v9.py` | Optional Windows setup interface | **No** |
+| OpenAI `tunnel-client.exe` | ChatGPT Web transport for the current tunnel arrangement | **Only for that remote connection** |
+
+**Validation status:** The project owner reports an end-to-end GridCraft test of their existing local tunnel setup. That does **not yet establish** that the simplified Python files published here reproduce the same result on a clean installation. Before a stable release, align the published launcher/router with the tested implementation and run a fresh end-to-end installation test.
+
 ## Dynamic discovery when applications update
 
 1. Install the updated application and matching MCP server.
