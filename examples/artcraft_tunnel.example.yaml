@@ -1,0 +1,23 @@
+# EXAMPLE ONLY — replace all placeholders before use.
+# Copy this file to a private profile outside the repository.
+# The exact tunnel-client YAML schema may differ by version.
+config_version: 1
+
+control_plane:
+  base_url: "https://api.openai.com"
+  tunnel_id: "REPLACE_WITH_YOUR_OWN_TUNNEL_ID"
+  api_key: "env:CONTROL_PLANE_API_KEY"
+
+health:
+  listen_addr: "127.0.0.1:8081"
+
+# Application MCP servers are aggregated by the local router.
+# The tunnel MCP backend must launch the router over stdio.
+# This is an illustrative example; check your tunnel-client version's
+# documentation for its supported MCP/backend configuration fields.
+mcp:
+  command: "python"
+  args:
+    - "artcraft_unified_router.py"
+    - "--config"
+    - "artcraft_router.json"
