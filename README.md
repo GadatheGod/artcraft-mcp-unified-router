@@ -95,6 +95,99 @@ $env:CONTROL_PLANE_API_KEY = "YOUR_OWN_API_KEY"
 
 This fragment is **not a complete tunnel profile**. Configure its MCP backend to launch or connect to the unified router, not an individual app, when aggregation is desired. Use the official tunnel-client documentation for its exact transport and backend fields. Do not expose unauthenticated local ports publicly.
 
+## Connect ChatGPT Web, OpenCode, Claude Desktop, and Claude Web
+
+**One ArtCraft command engine, different MCP transports.** Each Craft app still needs its own installed GUI and compatible local MCP/control-mode interface. The unified router aggregates these interfaces; the AI client chooses how to reach the router.
+
+| Client | Connection path | OpenAI tunnel? | Status |
+| --- | --- | --- | --- |
+| **ChatGPT Web** | ChatGPT → OpenAI Secure MCP Tunnel → local unified router → Craft app MCP/control mode | **Yes**, for this project's current ChatGPT Web arrangement | GridCraft end-to-end flow **reported tested by project owner** |
+| **OpenCode (running on same Windows PC)** | OpenCode → local stdio MCP router → Craft app MCP/control mode | **No** | Example configuration; verify locally |
+| **Claude Desktop** | Claude Desktop → local stdio MCP router → Craft app MCP/control mode | **No** | Example configuration; verify locally |
+| **Claude Web (claude.ai)** | Claude Web → authenticated public HTTPS MCP endpoint → HTTP-to-MCP bridge/router → Craft app MCP/control mode | **No OpenAI tunnel**; requires secure remote access | **Not implemented or verified** in this repository |
+
+### ChatGPT Web: OpenAI Secure MCP Tunnel
+
+```text
+ChatGPT Web
+  → OpenAI Secure MCP Tunnel (authorized tunnel ID / credentials)
+  → ArtCraft Unified MCP Router (local Windows PC)
+  → selected GridCraft / SolidCraft / DeckCraft MCP server
+  → Craft GUI launched in control mode
+```
+
+Install the [official OpenAI tunnel-client](https://github.com/openai/tunnel-client/releases/latest), configure a valid control-plane profile and its MCP backend according to the [official documentation](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels), and connect through a supported ChatGPT MCP integration. **The tunnel is transport, not the unified router or an application MCP server.** Installing the tunnel alone does not launch Craft applications or configure their paths.
+
+### OpenCode on Windows: direct local MCP, no tunnel
+
+Configure the **local** MCP server in `opencode.json` (merge with existing settings):
+
+```json
+{
+  "mcp": {
+    "artcraft": {
+      "type": "local",
+      "command": [
+        "python",
+        "C:\\ArtCraft\\artcraft_unified_router.py",
+        "--config",
+        "C:\\ArtCraft\\artcraft_router.json"
+      ],
+      "enabled": true
+    }
+  }
+}
+```
+
+Replace `C:\ArtCraft` with your installation directory. OpenCode launches the stdio router locally; the router dispatches to the configured app MCP servers. See [OpenCode MCP documentation](https://opencode.ai/docs/mcp-servers/) for the supported configuration schema in your installed version. **No OpenAI tunnel or public IP is needed.**
+
+### Claude Desktop: direct local MCP, no tunnel
+
+Add a local stdio server to `%APPDATA%\Claude\claude_desktop_config.json` (merge into existing `mcpServers`):
+
+```json
+{
+  "mcpServers": {
+    "artcraft": {
+      "command": "python",
+      "args": [
+        "C:\\ArtCraft\\artcraft_unified_router.py",
+        "--config",
+        "C:\\ArtCraft\\artcraft_router.json"
+      ]
+    }
+  }
+}
+```
+
+Restart Claude Desktop after changing the file. This is **Claude Desktop**, not Claude in a browser.
+
+### Claude Web: secure remote HTTP MCP endpoint required
+
+```text
+Claude Web (claude.ai)
+  → HTTPS remote MCP endpoint with appropriate authentication
+  → HTTP MCP bridge / Streamable HTTP server on your Windows PC
+  → ArtCraft Unified MCP Router
+  → Craft app MCP server → Craft GUI in control mode
+```
+
+Claude Web cannot directly start a Windows stdio command on your PC. A third-party network tunnel (for example, Cloudflare Tunnel) can provide HTTPS reachability, **but a tunnel by itself does not convert stdio MCP to HTTP MCP**. You must also run a compatible HTTP MCP server/bridge supporting the transport accepted by Claude's custom connectors, and secure it with authentication and access controls. Then add the remote connector in [Claude's connector settings](https://claude.ai/settings/connectors), subject to plan and workspace availability.
+
+**Current repository limitation:** This project currently provides a stdio router. It does **not** include a tested Claude Web HTTP bridge, Cloudflare Tunnel configuration, or authentication implementation. Do not publish an unauthenticated MCP endpoint to the internet.
+
+### Recommended cross-client architecture
+
+```text
+                  ┌─ ChatGPT Web ─ OpenAI Secure MCP Tunnel ─┐
+ArtCraft Router ←─┼─ OpenCode / Claude Desktop ─ local stdio ┤
+                  └─ Claude Web ─ HTTPS + authenticated HTTP bridge ┘
+                           |
+                  app MCP servers / GUI control mode
+```
+
+The diagram shows **alternative frontends into one router**, not a requirement to run all connections at once. Keep Craft-specific commands and discovery in the shared router; add transport adapters separately. After application updates, refresh tool discovery and reconnect a client if its tool catalog remains cached.
+
 ## Dynamic discovery when applications update
 
 1. Install the updated application and matching MCP server.
