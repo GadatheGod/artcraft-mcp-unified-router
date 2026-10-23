@@ -54,6 +54,15 @@ ChatGPT / OpenCode / other MCP client
 8. Confirm the tool catalog through the router's status, catalog, and refresh functions.
 9. Connect an MCP-compatible client and test a read-only command before allowing modifications.
 
+## Download the official OpenAI Secure MCP Tunnel client
+
+- **[Download the latest tunnel-client release (Windows, macOS, Linux)](https://github.com/openai/tunnel-client/releases/latest)**
+- [OpenAI tunnel-client source code](https://github.com/openai/tunnel-client)
+- [Official Secure MCP Tunnel setup guide](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels)
+- [OpenAI Platform tunnel management](https://platform.openai.com/settings/organization/tunnels)
+
+On Windows, open the latest release, download the appropriate `windows-amd64` ZIP for most Intel/AMD PCs, extract it, and locate `tunnel-client.exe`. In PowerShell run ` .\\tunnel-client.exe help quickstart ` for supported setup instructions. Create your own tunnel ID and credentials in OpenAI Platform; never reuse another person's values.
+
 ## OpenAI tunnel and API setup (optional)
 
 A ChatGPT subscription is **not** an OpenAI API key. Obtain tunnel credentials through the supported control-plane onboarding process; do not commit secrets to GitHub.
