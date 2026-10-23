@@ -63,6 +63,15 @@ ChatGPT / OpenCode / other MCP client
 
 On Windows, open the latest release, download the appropriate `windows-amd64` ZIP for most Intel/AMD PCs, extract it, and locate `tunnel-client.exe`. In PowerShell run ` .\\tunnel-client.exe help quickstart ` for supported setup instructions. Create your own tunnel ID and credentials in OpenAI Platform; never reuse another person's values.
 
+### Generate your own OpenAI API key
+
+1. Sign in to the **[OpenAI API Keys page](https://platform.openai.com/api-keys)**.
+2. Select the appropriate project and choose **Create new secret key**.
+3. Copy the key securely when it is displayed. Never commit it to this repository.
+4. For a local PowerShell session, set `$env:CONTROL_PLANE_API_KEY = "YOUR_OWN_KEY"` only if your tunnel setup specifically requires an OpenAI API key for that variable.
+
+**Important:** OpenAI API keys and ChatGPT subscriptions are separate. A standard OpenAI API key may not be sufficient to authenticate a particular tunnel/control-plane deployment; use the credential required by your tunnel setup.
+
 ## OpenAI tunnel and API setup (optional)
 
 A ChatGPT subscription is **not** an OpenAI API key. Obtain tunnel credentials through the supported control-plane onboarding process; do not commit secrets to GitHub.
