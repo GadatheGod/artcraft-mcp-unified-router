@@ -1,0 +1,6 @@
+# Python 3.10+
+# No third-party Python dependencies required by the published router and launcher.
+# Uses the standard library (json, subprocess, threading, tkinter, unittest, etc.).
+# tkinter is bundled with standard Windows Python installers; install separately on some Linux distributions.
+# ArtCraft application CLIs and the optional tunnel-client are external executables,
+# not pip dependencies. Follow README.md for their installation.
